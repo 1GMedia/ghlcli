@@ -54,7 +54,8 @@
       "auth": "pit-or-oauth-location",
       "stability": "stable",
       "mutates": null,
-      "endpoint": "generic public API request with --path-param support"
+      "endpoint": "generic public API request with --path-param support",
+      "sdk": "GHLClient.request"
     },
     {
       "name": "internal.request",
@@ -72,7 +73,8 @@
       "auth": "pit-or-oauth-location",
       "stability": "stable",
       "mutates": false,
-      "endpoint": "GET /contacts/"
+      "endpoint": "GET /contacts/",
+      "sdk": "GHLClient.contacts.list"
     },
     {
       "name": "contacts.create",
@@ -81,7 +83,8 @@
       "auth": "pit-or-oauth-location",
       "stability": "stable",
       "mutates": true,
-      "endpoint": "POST /contacts/"
+      "endpoint": "POST /contacts/",
+      "sdk": "GHLClient.contacts.create"
     },
     {
       "name": "opportunities.list",
@@ -90,7 +93,8 @@
       "auth": "pit-or-oauth-location",
       "stability": "stable",
       "mutates": false,
-      "endpoint": "GET /opportunities/search"
+      "endpoint": "GET /opportunities/search",
+      "sdk": "GHLClient.opportunities.list"
     },
     {
       "name": "calendars.book",
@@ -99,7 +103,8 @@
       "auth": "pit-or-oauth-location",
       "stability": "stable",
       "mutates": true,
-      "endpoint": "POST /calendars/events/appointments"
+      "endpoint": "POST /calendars/events/appointments",
+      "sdk": "GHLClient.calendars.book"
     },
     {
       "name": "workflows.list",
@@ -108,7 +113,8 @@
       "auth": "pit-or-oauth-location",
       "stability": "stable",
       "mutates": false,
-      "endpoint": "GET /workflows/"
+      "endpoint": "GET /workflows/",
+      "sdk": "GHLClient.workflows.list"
     },
     {
       "name": "workflows.enroll",
@@ -117,7 +123,8 @@
       "auth": "pit-or-oauth-location",
       "stability": "stable",
       "mutates": true,
-      "endpoint": "POST /contacts/{contact_id}/workflow/{workflow_id}"
+      "endpoint": "POST /contacts/{contact_id}/workflow/{workflow_id}",
+      "sdk": "GHLClient.workflows.enroll"
     },
     {
       "name": "workflows.remove",
@@ -126,7 +133,8 @@
       "auth": "pit-or-oauth-location",
       "stability": "stable",
       "mutates": true,
-      "endpoint": "DELETE /contacts/{contact_id}/workflow/{workflow_id}"
+      "endpoint": "DELETE /contacts/{contact_id}/workflow/{workflow_id}",
+      "sdk": "GHLClient.workflows.remove"
     },
     {
       "name": "workflows.create",
@@ -162,7 +170,8 @@
       "auth": "pit-or-oauth-location",
       "stability": "stable",
       "mutates": true,
-      "endpoint": "POST /conversations/messages"
+      "endpoint": "POST /conversations/messages",
+      "sdk": "GHLClient.conversations.send"
     },
     {
       "name": "social.create-post",
@@ -171,7 +180,8 @@
       "auth": "pit-or-oauth-location",
       "stability": "stable",
       "mutates": true,
-      "endpoint": "POST /social-media-posting/{location_id}/posts"
+      "endpoint": "POST /social-media-posting/{location_id}/posts",
+      "sdk": "GHLClient.social.create_post"
     },
     {
       "name": "locations.search",
@@ -180,7 +190,8 @@
       "auth": "pit-or-oauth-company",
       "stability": "stable",
       "mutates": false,
-      "endpoint": "GET /locations/search"
+      "endpoint": "GET /locations/search",
+      "sdk": "GHLClient.locations.search"
     },
     {
       "name": "oauth.exchange-code",
@@ -226,6 +237,376 @@
       "stability": "stable",
       "mutates": false,
       "endpoint": "local MCP source inventory"
+    },
+    {
+      "name": "contacts.get",
+      "command": "ghl contacts get",
+      "sdk": "GHLClient.contacts.get",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /contacts/{contact_id}"
+    },
+    {
+      "name": "contacts.update",
+      "command": "ghl contacts update",
+      "sdk": "GHLClient.contacts.update",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "PUT /contacts/{contact_id}"
+    },
+    {
+      "name": "contacts.delete",
+      "command": "ghl contacts delete",
+      "sdk": "GHLClient.contacts.delete",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "DELETE /contacts/{contact_id}"
+    },
+    {
+      "name": "contacts.search",
+      "command": "ghl contacts search",
+      "sdk": "GHLClient.contacts.search",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "POST /contacts/search"
+    },
+    {
+      "name": "contacts.add-tag",
+      "command": "ghl contacts add-tag",
+      "sdk": "GHLClient.contacts.add_tag",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "POST /contacts/{contact_id}/tags"
+    },
+    {
+      "name": "contacts.remove-tag",
+      "command": "ghl contacts remove-tag",
+      "sdk": "GHLClient.contacts.remove_tag",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "DELETE /contacts/{contact_id}/tags"
+    },
+    {
+      "name": "conversations.list",
+      "command": "ghl conversations list",
+      "sdk": "GHLClient.conversations.list",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /conversations/search"
+    },
+    {
+      "name": "conversations.get",
+      "command": "ghl conversations get",
+      "sdk": "GHLClient.conversations.get",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /conversations/{conversation_id}"
+    },
+    {
+      "name": "conversations.messages",
+      "command": "ghl conversations messages",
+      "sdk": "GHLClient.conversations.messages",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /conversations/{conversation_id}/messages"
+    },
+    {
+      "name": "conversations.get-email",
+      "command": "ghl conversations get-email",
+      "sdk": "GHLClient.conversations.get_email",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /conversations/messages/email/{email_message_id}"
+    },
+    {
+      "name": "opportunities.get",
+      "command": "ghl opportunities get",
+      "sdk": "GHLClient.opportunities.get",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /opportunities/{opportunity_id}"
+    },
+    {
+      "name": "opportunities.create",
+      "command": "ghl opportunities create",
+      "sdk": "GHLClient.opportunities.create",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "POST /opportunities/"
+    },
+    {
+      "name": "opportunities.update",
+      "command": "ghl opportunities update",
+      "sdk": "GHLClient.opportunities.update",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "PUT /opportunities/{opportunity_id}"
+    },
+    {
+      "name": "opportunities.delete",
+      "command": "ghl opportunities delete",
+      "sdk": "GHLClient.opportunities.delete",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "DELETE /opportunities/{opportunity_id}"
+    },
+    {
+      "name": "opportunities.pipelines",
+      "command": "ghl opportunities pipelines",
+      "sdk": "GHLClient.opportunities.pipelines",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /opportunities/pipelines"
+    },
+    {
+      "name": "calendars.list",
+      "command": "ghl calendars list",
+      "sdk": "GHLClient.calendars.list",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /calendars/"
+    },
+    {
+      "name": "calendars.get",
+      "command": "ghl calendars get",
+      "sdk": "GHLClient.calendars.get",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /calendars/{calendar_id}"
+    },
+    {
+      "name": "calendars.slots",
+      "command": "ghl calendars slots",
+      "sdk": "GHLClient.calendars.slots",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /calendars/{calendar_id}/free-slots"
+    },
+    {
+      "name": "calendars.appointments",
+      "command": "ghl calendars appointments",
+      "sdk": "GHLClient.calendars.appointments",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /calendars/events/appointments"
+    },
+    {
+      "name": "calendars.groups",
+      "command": "ghl calendars groups",
+      "sdk": "GHLClient.calendars.groups",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /calendars/groups"
+    },
+    {
+      "name": "locations.get",
+      "command": "ghl locations get",
+      "sdk": "GHLClient.locations.get",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /locations/{location_id}"
+    },
+    {
+      "name": "locations.tags",
+      "command": "ghl locations tags",
+      "sdk": "GHLClient.locations.tags",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /locations/{location_id}/tags"
+    },
+    {
+      "name": "locations.custom-fields",
+      "command": "ghl locations custom-fields",
+      "sdk": "GHLClient.locations.custom_fields",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /locations/{location_id}/customFields"
+    },
+    {
+      "name": "locations.custom-values",
+      "command": "ghl locations custom-values",
+      "sdk": "GHLClient.locations.custom_values",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /locations/{location_id}/customValues"
+    },
+    {
+      "name": "payments.transactions",
+      "command": "ghl payments transactions",
+      "sdk": "GHLClient.payments.transactions",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /payments/transactions"
+    },
+    {
+      "name": "payments.orders",
+      "command": "ghl payments orders",
+      "sdk": "GHLClient.payments.orders",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /payments/orders"
+    },
+    {
+      "name": "payments.invoices",
+      "command": "ghl payments invoices",
+      "sdk": "GHLClient.payments.invoices",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /invoices/"
+    },
+    {
+      "name": "payments.create-invoice",
+      "command": "ghl payments create-invoice",
+      "sdk": "GHLClient.payments.create_invoice",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "POST /invoices/"
+    },
+    {
+      "name": "forms.list",
+      "command": "ghl forms list",
+      "sdk": "GHLClient.forms.list",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /forms/"
+    },
+    {
+      "name": "forms.submissions",
+      "command": "ghl forms submissions",
+      "sdk": "GHLClient.forms.submissions",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /forms/submissions"
+    },
+    {
+      "name": "social.accounts",
+      "command": "ghl social accounts",
+      "sdk": "GHLClient.social.accounts",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /social-media-posting/{location_id}/accounts"
+    },
+    {
+      "name": "social.posts",
+      "command": "ghl social posts",
+      "sdk": "GHLClient.social.posts",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "POST /social-media-posting/{location_id}/posts/list"
+    },
+    {
+      "name": "documents.list",
+      "command": "ghl documents list",
+      "sdk": "GHLClient.documents.list",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /proposals/document"
+    },
+    {
+      "name": "documents.templates",
+      "command": "ghl documents templates",
+      "sdk": "GHLClient.documents.templates",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /proposals/templates"
+    },
+    {
+      "name": "documents.send",
+      "command": "ghl documents send",
+      "sdk": "GHLClient.documents.send",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "POST /proposals/document/send"
+    },
+    {
+      "name": "documents.send-template",
+      "command": "ghl documents send-template",
+      "sdk": "GHLClient.documents.send_template",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "POST /proposals/templates/send"
+    },
+    {
+      "name": "emails.list-campaigns",
+      "command": "ghl emails list-campaigns",
+      "sdk": "GHLClient.emails.list_campaigns",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /campaigns/"
     }
   ]
 }

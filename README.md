@@ -12,6 +12,7 @@ Built by [Lead Gen Jay](https://leadgenjay.com).
 
 - **15+ command groups** covering core GHL surfaces (contacts, opportunities, calendars, workflows, conversations, emails, payments, forms, social, locations, documents, OAuth, endpoint discovery, MCP inventory, and generic requests).
 - **A REPL** — type `ghl` with no args and you get an interactive shell with autocomplete.
+- **A Python CLI SDK** — import `GHLClient` and call the same public API surfaces from Python code.
 - **Workflow builders** — Python scripts that take a markdown file and turn it into a live GHL workflow (see `builders/`).
 - **A one-line token helper** — a DevTools console snippet that exports the Firebase token you need for the "internal" GHL API (the public API can't create workflows; the internal one can). See [`docs/get-firebase-token.md`](docs/get-firebase-token.md).
 - **An agent skill package** at `skills/ghlcli/SKILL.md` so Codex, Claude-style agents, and the `skills` CLI can use the CLI safely.
@@ -49,6 +50,33 @@ Do **not** claim:
 > We can access everything in HighLevel.
 
 The internal client is currently workflow-focused plus a guarded backend gateway. Expand it carefully behind `--experimental`, `--dry-run`, redaction, and live-safe tests.
+
+---
+
+## CLI SDK
+
+Use `ghlcli` as a command line tool, a Python SDK, or an agent skill package:
+
+```python
+from cli_anything.gohighlevel.sdk import GHLClient
+
+client = GHLClient()
+contacts = client.contacts.list(limit=10)
+result = client.request("GET", "/contacts/", params={"locationId": client.location_id})
+```
+
+Reference docs:
+
+- [Command reference](docs/commands.md)
+- [Endpoint coverage map](docs/endpoint-map.md)
+- [Python SDK](docs/python-sdk.md)
+- [Agent skills](docs/agent-skills.md)
+
+Regenerate docs after changing commands, capabilities, or skills:
+
+```bash
+python scripts/generate_reference_docs.py
+```
 
 ---
 

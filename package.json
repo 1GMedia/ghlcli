@@ -19,16 +19,21 @@
     "cli_anything/gohighlevel/capabilities.json",
     "cli_anything/gohighlevel/skills/*.md",
     "docs/get-firebase-token.md",
+    "docs/agent-skills.md",
+    "docs/commands.md",
+    "docs/endpoint-map.md",
     "docs/how-it-works.excalidraw",
     "docs/how-it-works.png",
+    "docs/python-sdk.md",
     "docs/unofficial-gohighlevel-cli-plan.md",
     "docs/upstream-ingestion-batch-001.md",
     "docs/workflows-map.md",
+    "scripts/*.py",
     "skills/**/*.md",
     "setup.py"
   ],
   "scripts": {
-    "test": "python3 -m py_compile cli_anything/gohighlevel/*.py cli_anything/gohighlevel/auth/*.py cli_anything/gohighlevel/adapters/*.py cli_anything/gohighlevel/utils/*.py tests/*.py && python3 -m unittest discover -s tests -v",
+    "test": "python3 -m py_compile cli_anything/gohighlevel/*.py cli_anything/gohighlevel/auth/*.py cli_anything/gohighlevel/adapters/*.py cli_anything/gohighlevel/sdk/*.py cli_anything/gohighlevel/utils/*.py scripts/*.py tests/*.py && python3 -m unittest discover -s tests -v",
     "pack:dry-run": "npm pack --dry-run"
   },
   "engines": {
