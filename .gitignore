@@ -1,0 +1,17 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+upstreams/
+.gstack/
+.agents/
+skills-lock.json
+.npm/
+build/
+dist/
+*.tgz

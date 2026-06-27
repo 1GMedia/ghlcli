@@ -1,0 +1,231 @@
+{
+  "schema": 1,
+  "project": "ghlcli",
+  "commands": [
+    {
+      "name": "doctor",
+      "command": "ghlcli doctor",
+      "provider": "local-diagnostics",
+      "auth": "none",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "local environment"
+    },
+    {
+      "name": "capabilities.list",
+      "command": "ghlcli capabilities list",
+      "provider": "local-registry",
+      "auth": "none",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "local capabilities.json"
+    },
+    {
+      "name": "endpoints.list",
+      "command": "ghlcli endpoints list",
+      "provider": "open-ghl-mcp-specs",
+      "auth": "none",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "local specs/ghl/*.json"
+    },
+    {
+      "name": "endpoints.show",
+      "command": "ghlcli endpoints show",
+      "provider": "open-ghl-mcp-specs",
+      "auth": "none",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "local specs/ghl/{category}.json"
+    },
+    {
+      "name": "endpoints.search",
+      "command": "ghlcli endpoints search",
+      "provider": "open-ghl-mcp-specs",
+      "auth": "none",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "local specs/ghl/*.json"
+    },
+    {
+      "name": "request",
+      "command": "ghlcli request",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": null,
+      "endpoint": "generic public API request with --path-param support"
+    },
+    {
+      "name": "internal.request",
+      "command": "ghl --experimental internal request",
+      "provider": "internal-backend",
+      "auth": "firebase-session",
+      "stability": "experimental",
+      "mutates": null,
+      "endpoint": "generic backend.leadconnectorhq.com request with --path-param support"
+    },
+    {
+      "name": "contacts.list",
+      "command": "ghl contacts list",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /contacts/"
+    },
+    {
+      "name": "contacts.create",
+      "command": "ghl contacts create",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "POST /contacts/"
+    },
+    {
+      "name": "opportunities.list",
+      "command": "ghl opportunities list",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /opportunities/search"
+    },
+    {
+      "name": "calendars.book",
+      "command": "ghl calendars book",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "POST /calendars/events/appointments"
+    },
+    {
+      "name": "workflows.list",
+      "command": "ghl workflows list",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /workflows/"
+    },
+    {
+      "name": "workflows.enroll",
+      "command": "ghl workflows enroll",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "POST /contacts/{contact_id}/workflow/{workflow_id}"
+    },
+    {
+      "name": "workflows.remove",
+      "command": "ghl workflows remove",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "DELETE /contacts/{contact_id}/workflow/{workflow_id}"
+    },
+    {
+      "name": "workflows.create",
+      "command": "ghl --experimental workflows create",
+      "provider": "internal-workflows",
+      "auth": "firebase-session",
+      "stability": "experimental",
+      "mutates": true,
+      "endpoint": "POST/PUT backend.leadconnectorhq.com/workflow/{location_id}"
+    },
+    {
+      "name": "workflows.create-step",
+      "command": "ghl --experimental workflows create-step",
+      "provider": "local-builder",
+      "auth": "none",
+      "stability": "experimental",
+      "mutates": false,
+      "endpoint": "local JSON file"
+    },
+    {
+      "name": "workflows.create-n8n",
+      "command": "ghl --experimental workflows create-n8n",
+      "provider": "internal-workflows",
+      "auth": "firebase-session",
+      "stability": "experimental",
+      "mutates": true,
+      "endpoint": "POST/PUT backend.leadconnectorhq.com/workflow/{location_id}"
+    },
+    {
+      "name": "conversations.send",
+      "command": "ghl conversations send",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "POST /conversations/messages"
+    },
+    {
+      "name": "social.create-post",
+      "command": "ghl social create-post",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-location",
+      "stability": "stable",
+      "mutates": true,
+      "endpoint": "POST /social-media-posting/{location_id}/posts"
+    },
+    {
+      "name": "locations.search",
+      "command": "ghl locations search",
+      "provider": "official-public-api",
+      "auth": "pit-or-oauth-company",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "GET /locations/search"
+    },
+    {
+      "name": "oauth.exchange-code",
+      "command": "ghl oauth exchange-code",
+      "provider": "official-oauth",
+      "auth": "oauth-client-secret",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "POST /oauth/token"
+    },
+    {
+      "name": "oauth.refresh",
+      "command": "ghl oauth refresh",
+      "provider": "official-oauth",
+      "auth": "oauth-client-secret",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "POST /oauth/token"
+    },
+    {
+      "name": "oauth.location-token",
+      "command": "ghl oauth location-token",
+      "provider": "official-oauth",
+      "auth": "oauth-company-token",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "POST /oauth/locationToken"
+    },
+    {
+      "name": "mcp.servers.list",
+      "command": "ghl mcp servers list",
+      "provider": "mcp-wrapper",
+      "auth": "none",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "local upstream inventory"
+    },
+    {
+      "name": "mcp.tools.list",
+      "command": "ghl mcp tools list",
+      "provider": "mcp-wrapper",
+      "auth": "none",
+      "stability": "stable",
+      "mutates": false,
+      "endpoint": "local MCP source inventory"
+    }
+  ]
+}

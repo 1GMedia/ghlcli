@@ -1,0 +1,47 @@
+{
+  "name": "ghlcli",
+  "version": "1.1.0",
+  "description": "Unofficial GoHighLevel CLI with public API, MCP/spec discovery, and protected Firebase/internal workflow tooling.",
+  "license": "UNLICENSED",
+  "private": true,
+  "type": "commonjs",
+  "bin": {
+    "ghlcli": "./bin/ghlcli.js",
+    "ghl": "./bin/ghl.js",
+    "ghlcli-skill": "./bin/ghlcli-skill.js"
+  },
+  "files": [
+    "AGENTS.md",
+    "README.md",
+    "bin/*.js",
+    "builders/*.py",
+    "cli_anything/**/*.py",
+    "cli_anything/gohighlevel/capabilities.json",
+    "cli_anything/gohighlevel/skills/*.md",
+    "docs/get-firebase-token.md",
+    "docs/how-it-works.excalidraw",
+    "docs/how-it-works.png",
+    "docs/unofficial-gohighlevel-cli-plan.md",
+    "docs/upstream-ingestion-batch-001.md",
+    "docs/workflows-map.md",
+    "skills/**/*.md",
+    "setup.py"
+  ],
+  "scripts": {
+    "test": "python3 -m py_compile cli_anything/gohighlevel/*.py cli_anything/gohighlevel/auth/*.py cli_anything/gohighlevel/adapters/*.py cli_anything/gohighlevel/utils/*.py tests/*.py && python3 -m unittest discover -s tests -v",
+    "pack:dry-run": "npm pack --dry-run"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "gohighlevel",
+    "highlevel",
+    "leadconnector",
+    "cli",
+    "mcp",
+    "codex-skill",
+    "agent-skill",
+    "skills-cli"
+  ]
+}
