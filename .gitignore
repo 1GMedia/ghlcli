@@ -16,3 +16,4 @@ build/
 dist/
 *.tgz
 outputs/
+node_modules/
