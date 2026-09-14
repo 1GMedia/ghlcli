@@ -29,7 +29,7 @@
     "docs/upstream-ingestion-batch-001.md",
     "docs/workflows-map.md",
     "scripts/*.py",
-    "skills/**/*.md",
+    "skills/**/*",
     "setup.py"
   ],
   "scripts": {

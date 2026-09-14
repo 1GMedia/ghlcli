@@ -1,0 +1,4 @@
+interface:
+  display_name: "GHL Browser Contact Backup"
+  short_description: "Back up HighLevel contacts through the signed-in UI"
+  default_prompt: "Use $ghl-backup-contacts-browser to back up every contact from a signed-in HighLevel subaccount into a verified spreadsheet."
