@@ -36,6 +36,7 @@ class GHLClient:
         self.conversations = ConversationsClient(self)
         self.workflows = WorkflowsClient(self)
         self.opportunities = OpportunitiesClient(self)
+        self.pipelines = PipelinesClient(self)
         self.calendars = CalendarsClient(self)
         self.locations = LocationsClient(self)
         self.payments = PaymentsClient(self)
@@ -224,6 +225,53 @@ class OpportunitiesClient(ResourceClient):
 
     def pipelines(self) -> Any:
         return self.request("GET", "/opportunities/pipelines", params=self.client.with_location({}))
+
+
+class PipelinesClient(ResourceClient):
+    """Location-scoped public v3 pipeline provisioning, separate from legacy helpers.
+
+    Create is deliberately not retried: callers must reconcile an uncertain
+    response against list() before deciding whether to create again.
+    """
+
+    VERSION = "v3"
+
+    def list(self) -> Any:
+        return self.request(
+            "GET", "/opportunities/pipelines",
+            params={"locationId": self.client.require_location_id()},
+            version=self.VERSION,
+        )
+
+    def create(self, *, name: str, stages: list[str]) -> Any:
+        """Create a pipeline in the configured location with ordered stage names.
+
+        The public documentation's example uses stage objects even though its
+        type summary labels stages as strings. Use the documented object shape.
+        No workflow, messaging, contact, or opportunity actions are performed.
+        """
+        location_id = self.client.require_location_id()
+        if not isinstance(name, str) or not name.strip():
+            raise ValueError("Pipeline name must be non-empty")
+        if not isinstance(stages, list) or not stages:
+            raise ValueError("At least one stage name is required")
+        if any(not isinstance(stage, str) or not stage.strip() for stage in stages):
+            raise ValueError("Stage names must be non-empty strings")
+        names = [stage.strip() for stage in stages]
+        if len({stage.casefold() for stage in names}) != len(names):
+            raise ValueError("Stage names must be unique ignoring case")
+        return self.request(
+            "POST", "/opportunities/pipelines",
+            body={
+                "name": name.strip(),
+                "locationId": location_id,
+                "stages": [
+                    {"name": stage, "position": position}
+                    for position, stage in enumerate(names, start=1)
+                ],
+            },
+            version=self.VERSION,
+        )
 
 
 class CalendarsClient(ResourceClient):
