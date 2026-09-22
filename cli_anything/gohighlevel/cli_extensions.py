@@ -107,6 +107,50 @@ def _require_experimental(ctx: click.Context) -> None:
 def register_foundation_commands(cli: click.Group) -> None:
     """Attach the new foundation command groups to the existing Click app."""
 
+    @cli.group("artist-setup")
+    def artist_setup_group():
+        """Prepare Tattoo.co pipeline/tag receipts; never activate CRM delivery."""
+
+    @artist_setup_group.command("plan")
+    @click.option("--artist-id", type=int, required=True)
+    @click.option("--artist-name", required=True)
+    @click.pass_context
+    def artist_setup_plan(ctx, artist_id, artist_name):
+        """Print the exact setup plan without credentials or network calls."""
+        from cli_anything.gohighlevel.artist_provisioning import plan_artist, SetupError
+        try:
+            _emit(ctx, plan_artist(artist_id, artist_name))
+        except SetupError as exc:
+            raise click.ClickException(str(exc)) from None
+
+    @artist_setup_group.command("run")
+    @click.option("--artist-id", type=int, required=True)
+    @click.option("--artist-name", required=True)
+    @click.option("--state-db", type=click.Path(dir_okay=False),
+                  default="~/.ghlcli/tattoo-artist-setup.sqlite", show_default=True)
+    @click.option("--apply", is_flag=True, help="Allow at most ONE provider create after reviewed rollout authorization")
+    @click.option("--confirm-location", default=None)
+    @click.option("--proof-reference", default=None, help="Reviewed Mia delivery proof issue or receipt")
+    @click.pass_context
+    def artist_setup_run(ctx, artist_id, artist_name, state_db, apply, confirm_location, proof_reference):
+        """Reconcile durable receipts. Default is provider read-only; preserve this DB."""
+        from cli_anything.gohighlevel.artist_provisioning import plan_artist, ReceiptStore, run_setup, SetupError
+        from cli_anything.gohighlevel.sdk import GHLClient
+        store = None
+        try:
+            plan = plan_artist(artist_id, artist_name)
+            store = ReceiptStore(state_db)
+            result = run_setup(GHLClient(location_id=ctx.obj.get("location_id")), store, plan,
+                               apply=apply, confirm_location=confirm_location, proof=proof_reference)
+            _emit(ctx, result)
+            if result["status"] in {"needs_review", "needs_reconciliation", "concurrent_operation"}:
+                ctx.exit(2)
+        except SetupError as exc:
+            raise click.ClickException(str(exc)) from None
+        finally:
+            if store:
+                store.close()
+
     @cli.command("doctor")
     @click.option("--json", "local_json", is_flag=True, help="Output JSON")
     @click.pass_context

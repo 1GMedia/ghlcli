@@ -372,3 +372,7 @@ You only need the Firebase token if you want to **build** workflows. Everything 
 ## License
 
 Private / personal use.
+
+### Tattoo.co artist provisioning
+
+`ghl artist-setup plan` prepares an offline pipeline/tag plan. `ghl artist-setup run` uses durable SQLite receipts and defaults to provider read-only reconciliation. Explicitly authorized apply runs create at most one object and preserve uncertain outcomes across restarts. See [the operator runbook](docs/tattoo-artist-provisioning.md) for the Mia-proof gate, recovery limits and separate admin activation.
